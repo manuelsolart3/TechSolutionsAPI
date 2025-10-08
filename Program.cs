@@ -43,27 +43,26 @@ var audience = jwtSettings["Audience"];
 
 builder.Services.AddAuthentication(options =>
 {
-    // Esquema de autenticación por defecto: JWT Bearer
+    //  JWT Bearer
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
-    // Configurar cómo validar los tokens JWT
+    // validar los tokens JWT
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,              // Validar quién emite el token
-        ValidateAudience = true,            // Validar para quién es el token
-        ValidateLifetime = true,            // Validar que no haya expirado
-        ValidateIssuerSigningKey = true,    // Validar la firma del token
+        ValidateIssuer = true,             
+        ValidateAudience = true,           
+        ValidateLifetime = true,           
+        ValidateIssuerSigningKey = true,   
 
-        ValidIssuer = issuer,               // Emisor esperado
-        ValidAudience = audience,           // Audiencia esperada
+        ValidIssuer = issuer,              
+        ValidAudience = audience,          
 
-        // Clave secreta para verificar la firma
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
 
-        ClockSkew = TimeSpan.Zero           // Sin tolerancia de tiempo
+        ClockSkew = TimeSpan.Zero          
     };
 });
 
@@ -85,7 +84,7 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 
-    // Configurar autenticación JWT en Swagger
+    // autenticación JWT en Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
